@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cd src && npx webpack --watch" 
+    "dev": "cd src && npx webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/021Coding/jp-volleyball-typescript#readme",
   "devDependencies": {
     "@webpack-cli/generators": "^3.0.1",
+    "ts-loader": "^9.4.2",
     "webpack-cli": "^5.0.1"
   }
 }

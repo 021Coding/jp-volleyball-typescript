@@ -5,4 +5,5 @@
 Open index.html in browser
 
 -To write and compile code-
+npm install
 npm run dev
