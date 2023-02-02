@@ -40,11 +40,13 @@ export class Player {
     private boost(targetX: number, targetY: number) {
         let dX: number = targetX - this.x;
         let dY: number = targetY - this.y;
-        let theta: number = Math.atan((dY/dX));
+        let theta: number = Math.atan2(dY, dX);
 
         console.log(dX);
         console.log(dY);
         console.log(theta);
+        this.xVel = Math.cos(theta) * 5;
+        this.yVel = Math.sin(theta) * 5;
     }
 
 }
