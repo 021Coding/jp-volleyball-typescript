@@ -1,8 +1,13 @@
 import { Canvas } from "../graphics/canvas";
+import { MouseInput } from "../input/mouseInput";
 import { Player } from "./player";
 
 export class Game {
+    // Canvas to draw graphics on
     private canvas: Canvas;
+
+    // Mouse input object
+    private mouseInput: MouseInput;
 
     // The width and height of the canvas 
     private WIDTH: number = 500;
@@ -16,6 +21,7 @@ export class Game {
 
     constructor() {
         this.canvas = new Canvas(this.WIDTH, this.HEIGHT);
+        this.mouseInput = this.canvas.getMouseInput();
     }
 
     // Handles setup

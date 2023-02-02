@@ -3,11 +3,15 @@ import { Canvas } from "../graphics/canvas";
 export class MouseInput {
     // Boolean telling if left mouse button is pressed
     private leftClick: boolean;
+    private mouseX: number = 0;
+    private mouseY: number = 0;
 
     constructor(canvas: HTMLCanvasElement) {
         this.leftClick = false;
 
         canvas.addEventListener('mousedown', (mousedown) => {
+            this.mouseX = mousedown.offsetX;
+            this.mouseY = mousedown.offsetY;
             this.leftClickPressed();
         }); 
 
@@ -18,7 +22,7 @@ export class MouseInput {
 
     public leftClickPressed() {
         this.leftClick = true;
-        console.log("Mousedown");
+        console.log("Mousedown @ " + this.mouseX + ", " + this.mouseY);
     }
 
     public leftClickReleased() {
@@ -32,6 +36,14 @@ export class MouseInput {
         }
 
         return false;
+    }
+
+    public getMouseX(): number {
+        return this.mouseX;
+    }
+
+    public getMouseY(): number {
+        return this.mouseY;
     }
 
 }

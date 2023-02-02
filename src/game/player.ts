@@ -19,22 +19,32 @@ export class Player {
         this.yVel = 0;
     }
 
-    update(mouseInput: MouseInput) {
-        // ----- TEST CODE -----------
-        // Adding gravity here for a quick test
-        this.yVel += 0.1; 
-        //Adding jetpack for test
+    public update(mouseInput: MouseInput) {
+        // ---- TESTING BOOST METHOD ----------
         if(mouseInput.isLeftClick()) {
-            this.yVel -= 0.3
+            this.boost(mouseInput.getMouseX(), mouseInput.getMouseY());
         }
-        // ---------------------------
+
+        // -----------------------------------
+
         // Change the current location by the corresponding velocity
         this.x += this.xVel;
         this.y += this.yVel;
     }
 
-    render(ctx: CanvasRenderingContext2D) {
+    public render(ctx: CanvasRenderingContext2D) {
         ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
+
+    // Add force towards a location
+    private boost(targetX: number, targetY: number) {
+        let dX: number = targetX - this.x;
+        let dY: number = targetY - this.y;
+        let theta: number = Math.atan((dY/dX));
+
+        console.log(dX);
+        console.log(dY);
+        console.log(theta);
     }
 
 }
