@@ -10,6 +10,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./game/collisions/Collider.ts":
+/*!*************************************!*\
+  !*** ./game/collisions/Collider.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Collider = void 0;\nclass Collider {\n    constructor(player) {\n        this.player = player;\n    }\n    update() {\n        if (this.player.getX() < 0) {\n            this.player.setX(0);\n            this.player.resetXVel();\n        }\n        else if (this.player.getX() + this.player.getSize() > 500) {\n            this.player.setX(500 - this.player.getSize());\n            this.player.resetXVel();\n        }\n        if (this.player.getY() < 0) {\n            this.player.setY(0);\n            this.player.resetYVel();\n        }\n        else if (this.player.getY() + this.player.getSize() > 500) {\n            this.player.setY(500 - this.player.getSize());\n            this.player.resetYVel();\n        }\n    }\n}\nexports.Collider = Collider;\n\n\n//# sourceURL=webpack:///./game/collisions/Collider.ts?");
+
+/***/ }),
+
 /***/ "./game/game.ts":
 /*!**********************!*\
   !*** ./game/game.ts ***!
@@ -24,9 +34,9 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
 /*!************************!*\
   !*** ./game/player.ts ***!
   \************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Player = void 0;\nclass Player {\n    constructor(startX, startY, size) {\n        this.x = startX;\n        this.y = startY;\n        this.size = size;\n        this.xVel = 0;\n        this.yVel = 0;\n    }\n    update(mouseInput) {\n        // ---- TESTING BOOST METHOD ----------\n        if (mouseInput.isLeftClick()) {\n            this.boost(mouseInput.getMouseX(), mouseInput.getMouseY());\n        }\n        // -----------------------------------\n        // Change the current location by the corresponding velocity\n        this.x += this.xVel;\n        this.y += this.yVel;\n    }\n    render(ctx) {\n        ctx.fillRect(this.x, this.y, this.size, this.size);\n    }\n    // Add force towards a location\n    boost(targetX, targetY) {\n        let dX = targetX - this.x;\n        let dY = targetY - this.y;\n        let theta = Math.atan2(dY, dX);\n        console.log(dX);\n        console.log(dY);\n        console.log(theta);\n        this.xVel = Math.cos(theta) * 5;\n        this.yVel = Math.sin(theta) * 5;\n    }\n}\nexports.Player = Player;\n\n\n//# sourceURL=webpack:///./game/player.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Player = void 0;\nconst Collider_1 = __webpack_require__(/*! ./collisions/Collider */ \"./game/collisions/Collider.ts\");\nclass Player {\n    constructor(startX, startY, size) {\n        this.x = startX;\n        this.y = startY;\n        this.size = size;\n        this.collider = new Collider_1.Collider(this);\n        this.xVel = 0;\n        this.yVel = 0;\n    }\n    update(mouseInput) {\n        // ---- TESTING BOOST METHOD ----------\n        if (mouseInput.isLeftClick()) {\n            this.boost(mouseInput.getMouseX(), mouseInput.getMouseY());\n        }\n        // -----------------------------------\n        // Gravity\n        this.yVel += 0.1;\n        // Change the current location by the corresponding velocity\n        this.x += this.xVel;\n        this.y += this.yVel;\n        // Collide with walls \n        this.collider.update();\n    }\n    render(ctx) {\n        ctx.fillRect(this.x, this.y, this.size, this.size);\n    }\n    // Add force towards a location\n    boost(targetX, targetY) {\n        let dX = targetX - this.x;\n        let dY = targetY - this.y;\n        let theta = Math.atan2(dY, dX);\n        console.log(dX);\n        console.log(dY);\n        console.log(theta);\n        this.xVel = Math.cos(theta) * 5;\n        this.yVel = Math.sin(theta) * 5;\n    }\n    getCollider() {\n        return this.collider;\n    }\n    getX() {\n        return this.x;\n    }\n    getY() {\n        return this.y;\n    }\n    getSize() {\n        return this.size;\n    }\n    setX(x) {\n        this.x = x;\n    }\n    setY(y) {\n        this.y = y;\n    }\n    resetXVel() {\n        this.xVel = 0;\n    }\n    resetYVel() {\n        this.yVel = 0;\n    }\n}\nexports.Player = Player;\n\n\n//# sourceURL=webpack:///./game/player.ts?");
 
 /***/ }),
 

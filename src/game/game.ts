@@ -10,8 +10,8 @@ export class Game {
     private mouseInput: MouseInput;
 
     // The width and height of the canvas 
-    private WIDTH: number = 500;
-    private HEIGHT: number = 500;
+    public WIDTH: number = 500;
+    public HEIGHT: number = 500;
 
     // Array of players in the game
     private players: Player[] = [];
