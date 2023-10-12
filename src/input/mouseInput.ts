@@ -1,5 +1,3 @@
-import { Canvas } from "../graphics/canvas";
-
 export class MouseInput {
     // Boolean telling if left mouse button is pressed
     private leftClick: boolean;

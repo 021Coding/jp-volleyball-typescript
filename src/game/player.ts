@@ -1,5 +1,6 @@
 import { MouseInput } from "../input/mouseInput";
-import { Collider } from "./collisions/Collider";
+import { Collider } from "../collisions/Collider";
+import { KeyboardInput } from "../input/keyboardInput";
 
 export class Player {
     // Location and size of the player
@@ -24,10 +25,19 @@ export class Player {
         this.yVel = 0;
     }
 
-    public update(mouseInput: MouseInput) {
+    public update(mouseInput: MouseInput, keyboardInput: KeyboardInput) {
         // ---- TESTING BOOST METHOD ----------
         if(mouseInput.isLeftClick()) {
             this.boost(mouseInput.getMouseX(), mouseInput.getMouseY());
+        }
+
+        if(keyboardInput.leftPressed() && !keyboardInput.rightPressed()) {
+            this.xVel -= 0.1;
+        } else if(keyboardInput.rightPressed() && !keyboardInput.leftPressed()) {
+            this.xVel += 0.1;
+        }
+        if(keyboardInput.jumpPressed()) {
+            this.yVel -= 1;
         }
 
         // -----------------------------------
@@ -56,8 +66,8 @@ export class Player {
         console.log(dX);
         console.log(dY);
         console.log(theta);
-        this.xVel = Math.cos(theta) * 5;
-        this.yVel = Math.sin(theta) * 5;
+        this.xVel += Math.cos(theta) * 5;
+        this.yVel += Math.sin(theta) * 5;
     }
 
     public getCollider() {

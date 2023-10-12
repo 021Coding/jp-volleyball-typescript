@@ -1,5 +1,7 @@
 import { Canvas } from "../graphics/canvas";
+import { KeyboardInput } from "../input/keyboardInput";
 import { MouseInput } from "../input/mouseInput";
+import { GAME_WIDTH, GAME_HEIGHT } from "../utils/utils";
 import { Player } from "./player";
 
 export class Game {
@@ -8,10 +10,11 @@ export class Game {
 
     // Mouse input object
     private mouseInput: MouseInput;
+    private keyboardInput: KeyboardInput;
 
     // The width and height of the canvas 
-    public WIDTH: number = 500;
-    public HEIGHT: number = 500;
+    public WIDTH: number = GAME_WIDTH;
+    public HEIGHT: number = GAME_HEIGHT;
 
     // Array of players in the game
     private players: Player[] = [];
@@ -22,6 +25,7 @@ export class Game {
     constructor() {
         this.canvas = new Canvas(this.WIDTH, this.HEIGHT);
         this.mouseInput = this.canvas.getMouseInput();
+        this.keyboardInput = this.canvas.getKeyboardInput();
     }
 
     // Handles setup
@@ -35,7 +39,7 @@ export class Game {
     // Function for updating all assets
     private update() {
         this.players.forEach(player => {
-            player.update(this.canvas.getMouseInput());
+            player.update(this.canvas.getMouseInput(), this.canvas.getKeyboardInput());
         });
     }
 
