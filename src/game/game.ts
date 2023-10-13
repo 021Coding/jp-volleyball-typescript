@@ -1,6 +1,7 @@
 import { Canvas } from "../graphics/canvas";
 import { KeyboardInput } from "../input/keyboardInput";
 import { MouseInput } from "../input/mouseInput";
+import { FPSTracker } from "../utils/fpsTracker";
 import { GAME_WIDTH, GAME_HEIGHT } from "../utils/utils";
 import { Player } from "./player";
 
@@ -11,6 +12,9 @@ export class Game {
     // Mouse input object
     private mouseInput: MouseInput;
     private keyboardInput: KeyboardInput;
+
+    // Track refreshes
+    private fpsTracker: FPSTracker;
 
     // The width and height of the canvas 
     public WIDTH: number = GAME_WIDTH;
@@ -26,6 +30,8 @@ export class Game {
         this.canvas = new Canvas(this.WIDTH, this.HEIGHT);
         this.mouseInput = this.canvas.getMouseInput();
         this.keyboardInput = this.canvas.getKeyboardInput();
+
+        this.fpsTracker = new FPSTracker(this.WIDTH - 38, 10);
     }
 
     // Handles setup
@@ -38,6 +44,7 @@ export class Game {
 
     // Function for updating all assets
     private update() {
+        this.fpsTracker.update();
         this.players.forEach(player => {
             player.update(this.canvas.getMouseInput(), this.canvas.getKeyboardInput());
         });
@@ -52,6 +59,8 @@ export class Game {
         this.players.forEach(player => {
             player.render(ctx);
         });
+
+        this.fpsTracker.render(ctx);
     }
 
     public run() {
